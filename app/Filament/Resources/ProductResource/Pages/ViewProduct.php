@@ -4,6 +4,7 @@ namespace App\Filament\Resources\ProductResource\Pages;
 
 use App\Filament\Resources\ProductResource;
 use Filament\Resources\Pages\ViewRecord;
+use Filament\Pages\Actions\EditAction;
 
 class ViewProduct extends ViewRecord
 {
@@ -12,5 +13,12 @@ class ViewProduct extends ViewRecord
     public function getTitle(): string
     {
         return 'Product Details';
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            EditAction::make(),
+        ];
     }
 }
