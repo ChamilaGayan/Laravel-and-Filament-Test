@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProductResource extends Resource
 {
@@ -39,6 +36,20 @@ class ProductResource extends Resource
 
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
+
+                Forms\Components\TextInput::make('address')
+                    ->label('Address')
+                    ->suffixAction(function ($state, callable $set, $livewire) {
+                        try {
+                            $client = new \GuzzleHttp\Client();
+                            $response = $client->get('https://jsonplaceholder.typicode.com/todos/1');
+                            $data = json_decode($response->getBody(), true);
+                            $set('address', $data['title'] ?? 'Fetched!');
+                        } catch (\Exception $e) {
+                            $livewire->addError('address', 'Failed to fetch data');
+                        }
+                    })
+                    ->helperText('Click the button to fetch data from external API')
             ]);
     }
 
