@@ -10,18 +10,13 @@ class Product extends Model
 
     protected $fillable = ['name', 'product_category_id', 'product_color_id', 'description'];
 
-    public function category()
+    public function productCategory()
     {
-        return $this->belongsTo(ProductCategory::class, 'product_category_id');
+        return $this->belongsTo(ProductCategory::class);
     }
 
-    public function color()
+    public function productColor()
     {
-        return $this->belongsTo(ProductColor::class, 'product_color_id');
-    }
-
-    public function types()
-    {
-        return $this->morphToMany(ProductType::class, 'type_assignments');
+        return $this->belongsTo(ProductColor::class);
     }
 }

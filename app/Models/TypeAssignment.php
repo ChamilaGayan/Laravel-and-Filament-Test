@@ -12,7 +12,7 @@ class TypeAssignment extends Model
 
     public function type()
     {
-        return $this->belongsTo(ProductType::class, 'type_id');
+        return $this->belongsTo(ProductType::class);
     }
 
     public function assignable()
